@@ -1,33 +1,35 @@
-import { useState } from 'react'
-import './App.css'
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Container, Row, Col } from "react-bootstrap";
+import { useState } from "react";
+import "./App.css";
+import { PhoneList } from "./components/phones/list";
+import { MessageForm } from "./components/messages/form";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={'static/public/images/vite.svg'} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={'static/public/images/react.svg'} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Container>
+        <Row className="justify-content-center">
+          <Col md="10">
+            <h2>Hwllor World</h2>
+            <hr />
+          </Col>
+          <Col md={10}>
+            <Row className="justify-content-between">
+              <Col md={6}>
+                <PhoneList />
+              </Col>
+              <Col md={5}>
+                <MessageForm />
+              </Col>
+            </Row>
+          </Col>
+        </Row>
+      </Container>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
