@@ -5,15 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hello from Flask</title>
-    <script src="{{ url_for('static', filename="dist/assets/index.js") }}" defer></script>
-    <link rel="stylesheet" href="{{ url_for('static', filename="dist/assets/index.css") }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename="dist/assets/main.css") }}">
 </head>
 <body>
-    {% if name %}
-    <h1>Hello {{ name }}!</h1>
-    {% else %}
-    <h1>Hello, World!</h1>
-    {% endif %}
     <div id="root"></div>
+    <script src="{{ url_for('static', filename="dist/assets/main.js") }}"></script>
 </body>
 </html>
