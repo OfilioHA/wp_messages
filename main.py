@@ -1,4 +1,4 @@
-from flask import Flask;
+from flask import Flask, render_template;
 from instance.models import db;
 
 app = Flask(__name__);
@@ -7,7 +7,7 @@ db.init_app(app);
 
 @app.route('/')
 def index():
-    return 'Hello World';
+    return render_template('index.html', name="Ofilio");
 
 if __name__ == '__main__':
     with app.app_context():
