@@ -1,22 +1,16 @@
-import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.scss";
 import { Container, Row, Col } from "react-bootstrap";
-import { useState } from "react";
-import "./App.css";
 import { PhoneList } from "./components/phones/list";
 import { MessageForm } from "./components/messages/form";
 
 function App() {
-  const [count, setCount] = useState(0);
-
-  return (
+   return (
     <>
       <Container>
-        <Row className="justify-content-center">
-          <Col md="10">
-            <h2>Hwllor World</h2>
-            <hr />
-          </Col>
-          <Col md={10}>
+        <Row className="vh-100 justify-content-center align-items-center">
+          <Col md={11}>
+            <h2>Whatsapp Messages Sender</h2>
+            <hr className="my-4"/>
             <Row className="justify-content-between">
               <Col md={6}>
                 <PhoneList />
