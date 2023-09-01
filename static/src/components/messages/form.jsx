@@ -3,7 +3,7 @@ import * as Yup from "yup";
 import { Card, Form, Button } from "react-bootstrap";
 import { TextField } from "../utils/forms/TextField";
 import { useFetch } from "../../hooks/useFetch";
-import { useRef } from "react";
+import { useCallback, useRef, useState } from "react";
 import { useRecoilValue } from "recoil";
 import {
   PhonesAllSeletedState,
@@ -14,6 +14,7 @@ export function MessageForm() {
   const inputFile = useRef(null);
   const fetcher = useFetch();
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const selectAll = useRecoilValue(PhonesAllSeletedState);
   const selectPhone = useRecoilValue(PhonesSeletedState);
 
@@ -26,7 +27,9 @@ export function MessageForm() {
       image: Yup.mixed().notRequired(),
       content: Yup.string().required(),
     }),
-    onSubmit: async (values) => {
+    onSubmit: async (values, helper) => {
+      if (isSubmitting) return;
+      setIsSubmitting(true);
       let file = null;
       const formData = new FormData();
       file = inputFile.current.files[0];
@@ -34,11 +37,13 @@ export function MessageForm() {
       formData.append("content", values.content);
       formData.append("selected", selectPhone);
       formData.append("all", selectAll);
-      const response = await fetcher.call("message", {
+      await fetcher.call("/message", {
         headers: { "Content-Type": "multipart/form-data" },
         method: "POST",
         data: formData,
       });
+      setIsSubmitting(false);
+      helper.resetForm();
     },
   });
 
@@ -46,7 +51,7 @@ export function MessageForm() {
     <Card>
       <FormikProvider value={formik}>
         <Form onSubmit={formik.handleSubmit}>
-          <Card.Body style={{ height: "330px" }}>
+          <Card.Body style={{ height: "381px" }}>
             <Field
               type="file"
               label="Imagen"

@@ -28,7 +28,7 @@ export function PhoneList() {
           ))}
           {fetcher.data.length < 6 && (
             <ListGroupItem
-              style={{ height: `${41 * (6 - fetcher.data.length)}px` }}
+              style={{ height: `${54.4 * (6 - fetcher.data.length)}px` }}
             />
           )}
         </>

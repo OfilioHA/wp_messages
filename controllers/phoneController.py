@@ -14,8 +14,8 @@ def index():
 def create():
     req = request.get_json(force=True);
     new_phone = Phone(
-        req['contact'],
-        req['number']
+        req['number'],
+        req['contact']
     );
     db.session.add(new_phone);
     db.session.commit();

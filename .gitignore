@@ -1,2 +1,4 @@
 instance/*.db
 __pycache__
+/upload
+/PyWhatKit_DB.txt

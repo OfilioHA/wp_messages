@@ -35,8 +35,8 @@ export function PhoneForm({ show, close, reload, data = null }) {
       centered
     >
       <FormikProvider value={formik}>
-        <Modal.Body>
-          <Form onSubmit={formik.handleSubmit}>
+        <Form onSubmit={formik.handleSubmit}>
+          <Modal.Body>
             <Field
               type="text"
               label="Contacto"
@@ -51,11 +51,11 @@ export function PhoneForm({ show, close, reload, data = null }) {
               component={TextField}
               id="phone-number"
             />
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button type="submit">Guardar</Button>
-        </Modal.Footer>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button type="submit">Guardar</Button>
+          </Modal.Footer>
+        </Form>
       </FormikProvider>
     </Modal>
   );
