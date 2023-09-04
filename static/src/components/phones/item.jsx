@@ -11,9 +11,7 @@ import {
 export function PhoneListItem({ phone, reload }) {
   const { id } = phone;
 
-  const [phonesSelecteds, setPhoneSelecteds] =
-    useRecoilState(PhonesSeletedState);
-  const [selectAll, setSelectedAll] = useRecoilState(PhonesAllSeletedState);
+  const [phonesSelecteds, setPhoneSelecteds] = useRecoilState(PhonesSeletedState);
   const [editShow, setEditShow] = useState(false);
 
   const handleChange = useCallback((event) => {
@@ -21,9 +19,9 @@ export function PhoneListItem({ phone, reload }) {
     if (checked) {
       setPhoneSelecteds((old) => [...old, id]);
     } else {
-      setPhoneSelecteds((old) => old.filter((item) => item != id));
+      setPhoneSelecteds((old) => old.filter((item) => item != id))
     }
-  }, [selectAll]);
+  }, []);
 
   return (
     <ListGroupItem>
@@ -31,7 +29,7 @@ export function PhoneListItem({ phone, reload }) {
         <div className="d-flex gap-1 me-3">
           <Form.Check
             type="switch"
-            checked={phonesSelecteds.includes(id) || selectAll}
+            checked={phonesSelecteds.includes(id)}
             onChange={handleChange}
           />
           <Button variant="warning" onClick={() => setEditShow(true)}>

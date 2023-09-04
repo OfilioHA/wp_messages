@@ -7,17 +7,23 @@ phone_router = Blueprint('phone', __name__, url_prefix='/phone')
 
 @phone_router.route('/', methods=['GET'])
 def index():
-    amount = 6
     page = request.args.get('page')
+    amount = request.args.get('amount')
     page = int(page) if page != None else 1
+    amount = int(amount) if amount != None else 6
+    phones = Phone.query.all();
+    id_list = [phone.id for phone in phones]
     offset = ((page - 1) * amount);
-    phones = Phone.query.offset(offset).limit(6).all();
+    phones = Phone.query.offset(offset).limit(amount).all();
     phones = [phone.as_dict() for phone in phones];
-    pages_max = math.ceil(Phone.query.count() / amount);
+    total = Phone.query.count();
+    pages_max = math.ceil(total / amount);
     return jsonify({
         'page_max': pages_max,
-        'phones': phones
-    })
+        'phones': phones,
+        'total': total,
+        'list': id_list
+    });
 
 
 @phone_router.route('/', methods=['POST'])

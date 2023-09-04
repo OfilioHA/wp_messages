@@ -4,9 +4,18 @@ import { PhoneListItem } from "./item";
 import { Loader } from "../utils/Loader";
 import { Empty } from "../utils/Empty";
 import { usePagination } from "../../hooks/usePagination";
+import { useEffect } from "react";
+import { useSetRecoilState } from "recoil";
+import { PhonesAllSeletedState } from "../../stores/PhoneStore";
 
 export function PhoneList() {
   const pagination = usePagination("/phone");
+  const setSelectAll = useSetRecoilState(PhonesAllSeletedState);
+
+  useEffect(() => {
+    if(!pagination.data.list) return;
+    setSelectAll(pagination.data.list);
+  }, [pagination.data]);
 
   return (
     <ListGroup>

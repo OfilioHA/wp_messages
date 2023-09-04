@@ -1,20 +1,34 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Button, ButtonGroup, Form, ListGroupItem } from "react-bootstrap";
 import { PhoneForm } from "./form";
-import { useRecoilState } from "recoil";
-import { PhonesAllSeletedState } from "../../stores/PhoneStore";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import {
+  PhonesAllSeletedState,
+  PhonesSeletedState,
+} from "../../stores/PhoneStore";
 
 export function PhoneListActions({ reload }) {
-  const [selectedAll, setSelectedAll] = useRecoilState(PhonesAllSeletedState);
+  const selectedAll = useRecoilValue(PhonesAllSeletedState);
+  const [phonesSelected, setPhoneSelected] = useRecoilState(PhonesSeletedState);
+
   const [show, setShow] = useState(false);
+
+  const handleChange = useCallback((event)=>{
+    const { target : { checked } } = event;
+    if(checked){
+      setPhoneSelected(selectedAll)
+    }else{
+      setPhoneSelected([]);
+    }
+  }, [selectedAll]);
 
   return (
     <ListGroupItem>
       <div className="d-flex">
         <Form.Switch
           className="me-1"
-          checked={selectedAll}
-          onChange={() => setSelectedAll((old) => !old)}
+          checked={phonesSelected.length == selectedAll.length}
+          onChange={handleChange}
         />
         <ButtonGroup>
           <Button onClick={() => setShow(true)}>

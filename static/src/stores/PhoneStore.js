@@ -7,5 +7,5 @@ export const PhonesSeletedState = atom({
 
 export const PhonesAllSeletedState = atom({
     key: 'PhonesAllSeletedState',
-    default: false
+    default: []
 })
