@@ -27,7 +27,7 @@ export function PhoneListActions({ reload }) {
       <div className="d-flex">
         <Form.Switch
           className="me-1"
-          checked={phonesSelected.length == selectedAll.length}
+          checked={phonesSelected.length == selectedAll.length && selectedAll.length}
           onChange={handleChange}
         />
         <ButtonGroup>
