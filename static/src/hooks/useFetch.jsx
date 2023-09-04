@@ -2,19 +2,21 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 export function useFetch(url, config = {}){
+
+    const axiosDefault = {
+        baseURL: '/api'
+    };
+
     const [response, setResponse] = useState(null);
     const [loading, setLoading] = useState(false);
     const [reload, setReload] = useState(false);
     const [data, setData] = useState([]);
 
-    const axiosDefault = {
-        baseURL: '/api'
-    };
     const instance = axios.create({
         ...axiosDefault,
         ...config
     });
-
+    
     const forceReload = ()=> setReload((old)=> !old);
 
     const call = async (url, config = {})=> {
@@ -47,7 +49,7 @@ export function useFetch(url, config = {}){
             setResponse(response.response);
             setData(response.response.data);
         })();
-    }, [reload]);
+    }, [reload, config.params?.page]);
 
     return {
         response,
