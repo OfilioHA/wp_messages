@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Button, Form, ListGroupItem } from "react-bootstrap";
 import { PhoneForm } from "./form";
 import { DeleteButton } from "../utils/DeleteButton";
@@ -15,19 +15,15 @@ export function PhoneListItem({ phone, reload }) {
     useRecoilState(PhonesSeletedState);
   const [selectAll, setSelectedAll] = useRecoilState(PhonesAllSeletedState);
   const [editShow, setEditShow] = useState(false);
-  const [selected, setSelected] = useState(false);
 
-  useEffect(() => {
-    if (selected) {
+  const handleChange = useCallback((event) => {
+    const { target: { checked } } = event;
+    if (checked) {
       setPhoneSelecteds((old) => [...old, id]);
-      return;
+    } else {
+      setPhoneSelecteds((old) => old.filter((item) => item != id));
     }
-    setPhoneSelecteds((old) => old.filter((item) => item != id));
-  }, [selected]);
-
-  useEffect(()=>{
-    setSelected(selectAll)
-  },[selectAll])
+  }, [selectAll]);
 
   return (
     <ListGroupItem>
@@ -35,10 +31,8 @@ export function PhoneListItem({ phone, reload }) {
         <div className="d-flex gap-1 me-3">
           <Form.Check
             type="switch"
-            checked={selected}
-            onChange={(e) => {
-              setSelected((old) => !old);
-            }}
+            checked={phonesSelecteds.includes(id) || selectAll}
+            onChange={handleChange}
           />
           <Button variant="warning" onClick={() => setEditShow(true)}>
             <i className="bi bi-pencil"></i>
