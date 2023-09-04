@@ -1,4 +1,4 @@
-from flask import Blueprint, current_app
+from flask import Blueprint
 from .phoneController import phone_router
 from .messageController import message_router
 
