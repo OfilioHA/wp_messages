@@ -10,7 +10,7 @@ flask-sqlalchemy = "*"
 python-dotenv = "*"
 flask_cors = "*"
 flask-praetorian = "*"
-pywin32 = "*"
+pypiwin32 = {version = "*", sys_platform = "== 'win32'"}
 
 [dev-packages]
 
