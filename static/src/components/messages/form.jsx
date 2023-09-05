@@ -5,17 +5,13 @@ import { TextField } from "../utils/forms/TextField";
 import { useFetch } from "../../hooks/useFetch";
 import { useRef, useState } from "react";
 import { useRecoilValue } from "recoil";
-import {
-  PhonesAllSeletedState,
-  PhonesSeletedState,
-} from "../../stores/PhoneStore";
+import {PhonesSeletedState } from "../../stores/PhoneStore";
 
 export function MessageForm() {
   const inputFile = useRef(null);
   const fetcher = useFetch();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const selectAll = useRecoilValue(PhonesAllSeletedState);
   const selectPhone = useRecoilValue(PhonesSeletedState);
 
   const formik = useFormik({
@@ -36,7 +32,6 @@ export function MessageForm() {
       formData.append("image", file || false);
       formData.append("content", values.content);
       formData.append("selected", selectPhone);
-      formData.append("all", selectAll);
       await fetcher.call("/message", {
         headers: { "Content-Type": "multipart/form-data" },
         method: "POST",

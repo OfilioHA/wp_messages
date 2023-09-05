@@ -11,15 +11,11 @@ def create():
     image = request.files.get('image');
     content = request.form.get('content');
     phones = request.form.get('selected');
-    all_phones = request.form.get('all');
     
     phones = phones.split(',');
     image_saved = '';
 
-    if all_phones == True:
-        phones = Phone.query.all();
-    else:
-        phones = Phone.query.filter(Phone.id.in_(phones));
+    phones = Phone.query.filter(Phone.id.in_(phones));
 
     if image:
         filename = secure_filename(image.filename);
